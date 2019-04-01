@@ -15,13 +15,20 @@ class SList{
     :_data(data_arr)
      ,_ListSize(arrSize)
   {}
+  SList(const SList& target);
   ~SList();
   ListNode*CreatAList();
+  ListNode*CreatAList_Loop(int num);
   ListNode*SetNodeAfter(int nums,int val);  
   ListNode*SetNodeBerfore(int nums,int val);
-  ListNode*SetNodeBack(int val);
-  ListNode*SetNodeFront(int val);
+  ListNode*SetNodeTail(int val);
+  ListNode*SetNodeHead(int val);
+  ListNode*TakeNode(int num);
+  ListNode*TakeHalf(ListNode*start,ListNode*end);
+  void CheckNode_ByAddress(ListNode* address);
+  void CheckNode_Bynum(int num);
   void DisplayList();
+  SList& operator=(const SList& d);
   private:
   int* _data;
   int _ListSize;
