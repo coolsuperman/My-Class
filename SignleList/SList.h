@@ -23,6 +23,9 @@ class SList{
   ListNode*SetNodeBerfore(int nums,int val);
   ListNode*SetNodeTail(int val);
   ListNode*SetNodeHead(int val);
+  ListNode*DelNodeHead();
+  ListNode*DelNodeTail();
+  ListNode*DelNodeInsert(int pos);
   ListNode*TakeNode(int num);
   ListNode*TakeHalf(ListNode*start,ListNode*end);
   void CheckNode_ByAddress(ListNode* address);

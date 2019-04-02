@@ -152,6 +152,36 @@ ListNode* SList::SetNodeBerfore(int nums,int val){
   return _head;
 }
 
+ListNode* SList::DelNodeHead(){
+  if(!_head){return NULL;}
+  ListNode*get = _head;
+  _head = _head->next;
+  delete get;
+  _ListSize--;
+  return _head;
+}
+
+ListNode* SList::DelNodeTail(){
+  if(!_head){return NULL;}
+  if(_ListSize==1){return DelNodeHead();}
+  ListNode*get = TakeNode(_ListSize-2),*last = get->next;
+  get->next =NULL;
+  delete last;
+  return _head;
+}
+
+ListNode* SList::DelNodeInsert(int pos){
+  if((!_head)||pos==0){return DelNodeHead();}
+  if(pos<0||pos>_ListSize-1){
+    cout<<"input inleagel"<<endl;
+    return NULL;
+  }
+  ListNode*get = TakeNode(pos-1),*last = get->next;
+  get->next =NULL;
+  delete last;
+  return _head;
+}
+
 ListNode* SList::TakeNode(int num){
   if(!_head){
     cout<<"Is empty!"<<endl;
