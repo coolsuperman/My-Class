@@ -166,6 +166,7 @@ ListNode* SList::DelNodeTail(){
   if(_ListSize==1){return DelNodeHead();}
   ListNode*get = TakeNode(_ListSize-2),*last = get->next;
   get->next =NULL;
+  _ListSize--;
   delete last;
   return _head;
 }
@@ -177,7 +178,8 @@ ListNode* SList::DelNodeInsert(int pos){
     return NULL;
   }
   ListNode*get = TakeNode(pos-1),*last = get->next;
-  get->next =NULL;
+  get->next =last->next;
+  _ListSize--;
   delete last;
   return _head;
 }
