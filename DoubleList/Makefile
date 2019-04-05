@@ -1,5 +1,5 @@
 all:test
-test:test.cpp	DList.cpp	DList.h
+test:test.cpp	DList.h
 		g++ $^ -o $@
 .PHONY:
 clean:
