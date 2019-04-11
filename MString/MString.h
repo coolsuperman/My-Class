@@ -1,8 +1,10 @@
 #include<iostream>
 #include<cassert>
+#include<cstring>
 
 using namespace std;
 namespace MS{
+ // const size_t npos = -1;
   class MString{
     public:
       MString(const char*str="")
@@ -71,12 +73,14 @@ namespace MS{
       void PushBack(char ch);
       void Append(const char* str);
       size_t Find(char ch,size_t pos = 0);
+      size_t RFind(char ch,size_t pos = -1);
       size_t Find(const char* str,size_t pos = 0);
       void Insert(size_t pos,char ch);
       void Insert(size_t pos,const char* str);
       void Erase(size_t pos ,size_t len = -1);
       void Reserve(size_t n);
       void Resize(size_t n,char ch = '\0');
+      MString SubStr(size_t pos,size_t len);
 
       char* C_str();
       void Strcpy(char*dst,const char*src);
@@ -85,7 +89,7 @@ namespace MS{
       char* _str;
       size_t _size;
       size_t _capacity;//不含\0容量
-      static const size_t npos;
+    //  static const size_t npos;
   };
 
 }

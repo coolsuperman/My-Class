@@ -8,5 +8,6 @@ int main(){
   s1+=' ';
   s1+="world";
   cout<<s1.C_str()<<endl;
+  cout<<s1.RFind('w')<<endl;
   return 0;
 }

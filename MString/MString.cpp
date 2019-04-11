@@ -12,12 +12,13 @@ void MString::PushBack(char ch){
   _str[_size] = '\0';
 }
 void MString::Append(const char* str){
-  size_t len = Strlen(str);
-  if(_size+len>_capacity){
-    Reserve(_size+len);
-  }
-  Strcpy(_str+_size,str);
-  _size+=len;
+ // size_t len = Strlen(str);//20 maybe cant take it;
+ // if(_size+len>_capacity){
+ //   Reserve(_size+len);
+ // }
+ // Strcpy(_str+_size,str);
+ // _size+=len;
+ Insert(_size,str);//diff;
 }
 MString& MString::operator+=(char ch){
   PushBack(ch);
@@ -29,15 +30,89 @@ MString& MString::operator+=(const char*str){
 }
 
 size_t MString::Find(char ch,size_t pos ){
-
+  while (pos<_size){
+    if(_str[pos]==ch){
+      return pos;
+    }
+    ++pos;
+  }
+  return -1;
+}
+size_t MString::RFind(char ch,size_t pos){
+  int end = _size-1;
+  if(pos!=(size_t)-1){
+    end = pos;
+  }
+  while(end>=0){
+    if(_str[end]==ch){
+      return end;
+    }
+    --end;
+  }
+  return -1;
 }
 size_t MString::Find(const char* str,size_t pos){
+  assert(pos<_size);
+  char* pmatch = strstr(_str+pos,str);//BF算法实现
+  if(pmatch==NULL){
+    return -1;
+  }else{
+    return pmatch -_str;
+  }
 }
 void MString::Insert(size_t pos,char ch){
+  assert(pos<_size);
+  if(_size==_capacity){
+    Reserve(_capacity*2);
+  }
+  int end = _size;
+  while(end>=(int)pos){
+    _str[end+1] = _str[end];
+    --end;
+  }
+  _str[pos] = ch;
+  _size++;
 }
 void MString::Insert(size_t pos,const char* str){
+  assert(pos<=_size);
+  size_t len = Strlen(str);
+  if(_size+len>_capacity){
+    Reserve(_size+len);
+  }
+  int end = _size;
+  while(end>=(int)pos){
+    _str[end+len] = _str[end];
+    --end;
+  }
+  while(*str){
+    _str[pos++] = *str++;
+  }
+  _size+=len;
 }
 void MString::Erase(size_t pos ,size_t len ){
+  assert(pos<_size);
+  if(len>=_size-pos){
+    _str[pos] = '\0';
+    _size = pos;
+  }else{
+    for(size_t i= 0;i<len;++i){
+      _str[pos] = _str[pos+len];
+      pos++;
+    }
+    _size -=len;
+    _str[_size] = '\0';
+  }
+}
+MString MString::SubStr(size_t pos,size_t len){
+  if(_size-pos<len){
+    len  =_size-pos;
+  }
+  MString sub;
+  sub.Reserve(len);
+  for(size_t i = pos;i<pos+len;++i){
+    sub += _str[i];
+  }
+  return sub;
 }
 
 void MString::Reserve(size_t n){
